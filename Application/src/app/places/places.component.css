@@ -1,0 +1,100 @@
+
+.container
+{
+  display: flex;
+}
+.container > div
+{
+  width:60%;
+  text-align: center;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  height:fit-content;
+}
+.flex-container
+{
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-container > div
+{
+  padding: 20px;
+  text-align: center;
+  border-radius: 30px;
+  background-color : #93e7d1;
+  width: 45%;
+  margin: 10px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 15px;
+}
+
+.flex-container > div:hover{  
+  background-color:  gray;
+}
+
+
+.chocolateCream
+{
+    width: 30vw;
+    margin-top: 30px;
+    margin-right: 40px;
+    border-radius: 2em;
+    background-color:  #fefdd1 ;
+}
+
+small{
+  font-size: small;
+}
+
+
+.leftAlign
+{
+  margin-left:20px;
+  width:13em;
+  float:left;
+}
+
+input{
+  margin-bottom:10px;
+}
+
+.noBackground{
+  border:none;
+  background-color : #93e7d1;
+}
+
+@media only screen and (max-width:600px)
+{
+  .container > .flex-container
+  {
+    margin-top : 180%;
+    
+  }
+  .flex-container > div
+  {
+    margin-top : 100%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 30px;
+    background-color : #93e7d1;
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 15px;
+  }  
+  .chocolateCream
+  {
+    
+    width: 400px;
+    margin-left : 300px;
+    background-color:  #fefdd1 ;
+  }
+  .leftMargin{
+    width: 100px;
+    margin-right:40px;
+  }
+
+}

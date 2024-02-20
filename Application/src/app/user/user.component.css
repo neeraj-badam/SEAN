@@ -1,0 +1,11 @@
+.container-fluid > .flex
+{
+    margin-right: 120px;
+    width: 45vw;
+    background-color: antiquewhite;
+}
+
+input,button{
+    width: 40vw;
+    margin:20px;
+}

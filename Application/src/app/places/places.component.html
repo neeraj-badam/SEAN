@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<app-admin-nav-bar></app-admin-nav-bar>
+<router-outlet></router-outlet>
+
+<nav style="text-align: center" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" [ngStyle]="{width:'70vw'}">
+        <input  [ngStyle]="{width:'40vw',float:'left'}" [(ngModel)]=search class="form-control" type="search" placeholder="Type to search here">
+        <a [routerLink]="['/admin/routes/',search]">
+            <button [ngStyle]="{width:'10vw',float:'right',marginRight:'100px'}"  style="margin-right: 10px" class="btn btn-outline-success" (click)="SearchRoutes()">Search</button>
+          </a>
+    </div>
+</nav>
+<router-outlet></router-outlet>
+
+<div class="container">
+    <div [ngStyle]="{float:'left'}" class="flex-container">
+       <div *ngFor="let item of data">
+           <div style="font-weight: bold;font-size: large;">{{item.startPoint__c}}</div>
+           <div>to</div>
+           <div style="font-weight: bold;font-size: large;">{{item.endPoint__c}}</div>
+           <div>{{item.time}} </div>
+     
+           <div>
+               <span [ngStyle]="{float:'left'}">{{item.distance__c}} km</span>
+               <span [ngStyle]="{color: '#008000',float:'right'}">{{item.remainingSeats__c}}-seats</span>
+            </div>
+            <br>
+           <div ><span>{{item.vehicleModel__c}}</span></div>
+           <div><!-- Edited -->
+            <span [ngStyle]="{float:'left'}">
+                 <button class="noBackground" (click)="deleteDriverRoute(item)" [ngStyle]="{marginLeft:'10px'}">
+                     <i class="fa fa-trash"></i>
+                 </button>
+            </span>
+            <span [ngStyle]="{float:'right'}">
+                 <button class="noBackground" (click)="populate(item)" [ngStyle]="{marginRight:'10px'}">
+                     <i class="fa fa-edit"></i>
+                 </button>
+             </span>
+            
+            <span [ngStyle]="{float:'right',marginRight:'20px'}">{{item.vehicleNumber}}</span></div>
+        </div>
+       </div>
+    <div>
+    <div class="leftMargin">
+       <form [ngStyle]="{float:'right'}" (ngSubmit)="addDriverRoute()"  [formGroup]="driverForm" class="chocolateCream">
+
+            <h2 align="center">Update/Add</h2>
+            <input type="text"  formControlName="startPoint" class="form-control" placeholder="Start" [ngStyle]="{marginLeft:'20px',width:'13em',float:'left'}">
+            <input type="text"  formControlName="endPoint" class="form-control" placeholder="End" [ngStyle]="{marginRight:'20px',width:'13em',float:'right'}">
+            <input type="date"  formControlName="date" class="form-control" placeholder="Date" [ngStyle]="{marginLeft:'20px',width:'13em',float:'left'}">
+            <input type="time"  formControlName="time" class="form-control" placeholder="Time" [ngStyle]="{marginRight:'20px',width:'13em',float:'right'}">
+            <input type="number"  formControlName="seats" class="form-control" min="1" max="4" placeholder="Enter No of seats" [ngStyle]="{marginLeft:'20px',width:'13em',float:'left'}">
+            <input type="number"  formControlName="distance" class="form-control" placeholder="Enter distance" [ngStyle]="{marginRight:'20px',width:'13em',float:'right'}">
+            <input type="email"  formControlName="emailId" class="form-control" placeholder="Enter emailId" [ngStyle]="{width:'27em',marginLeft:'20px'}">
+            <input type="text"  formControlName="vehicleModel" class="form-control" placeholder="Car Model" [ngStyle]="{marginLeft:'20px',width:'13em',float:'left'}">
+            <input type="text"  formControlName="vehicleNumber" class="form-control" placeholder="Car Reg No" [ngStyle]="{marginRight:'20px',width:'13em',float:'right'}">
+            <br><br>
+            <div *ngIf="driverForm.get('seats').errors &&  driverForm.get('seats').touched">
+                <small *ngIf="driverForm.get('seats').errors.required" class="text-danger">Seats field is required</small>
+                <small *ngIf="driverForm.get('seats').errors.min" class="text-danger">Minimum seats should be 1</small>
+                <small *ngIf="driverForm.get('seats').errors.max" class="text-danger">Maximum seats should be 4</small>
+            </div>
+            <div *ngIf="driverForm.get('emailId').errors &&  driverForm.get('emailId').touched">
+                <small *ngIf="driverForm.get('emailId').errors.required" class="text-danger">Mobile is required</small>
+                <small *ngIf="!driverForm.get('emailId').errors.required &&driverForm.get('emailId').dirty && driverForm.get('emailId').errors.mobileFailed" class="text-danger">Invalid Phone Number</small>
+            </div>
+            <button [disabled]='!driverForm.valid' class="btn btn-info">Update</button>
+            <small *ngIf="NoDriver != ''" [class]="color">{{NoDriver}}</small>
+            <br><br>
+       </form>
+    </div>
+   
+</div>

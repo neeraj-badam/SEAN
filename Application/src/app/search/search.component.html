@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<app-user-nav-bar></app-user-nav-bar>
+<router-outlet></router-outlet>
+<nav style="text-align: center" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" [ngStyle]="{width:'70vw'}">
+        <input  [ngStyle]="{width:'40vw',float:'left'}" [(ngModel)]=search class="form-control" type="search" placeholder="Type to search here">
+        <a [routerLink]="['/users/routes/',search]">
+            <button [ngStyle]="{width:'10vw',float:'right',marginRight:'100px'}"  style="margin-right: 10px" class="btn btn-outline-success" >Search</button>
+          </a>
+    </div>
+</nav>
+
+
+<small *ngIf="routes==0">Please check the spelling of the place</small>
+<div class="container" *ngIf="routes>0">
+    <div [ngStyle]="{float:'left'}" class="flex-container">
+       <div *ngFor="let item of data" (click)="book(item)">
+           <div style="font-weight: bold;font-size: large;">{{item.startPoint__c}}</div>
+           <div>to</div>
+           <div style="font-weight: bold;font-size: large;">{{item.endPoint__c}}</div>
+           <div>{{item.time__c}} </div>
+     
+           <div>
+               <span [ngStyle]="{float:'left'}">{{item.distance__c}} km</span>
+               <span [ngStyle]="{color: '#008000',float:'right'}">{{item.remainingSeats__c}}-seats</span>
+            </div>
+            <br>
+           <div><span>{{item.vehicleModel__c}}</span></div>
+
+            <div>
+                <span [ngStyle]="{float:'left'}">
+                    <i class="fa fa-trash"></i>
+                </span>
+                <span [ngStyle]="{float:'right'}">
+                    {{item.vehicleNumber__c}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="clicked" class="modal fade in" aria-hidden="false" style="display: block;" ng-show="isPopupVisible" class="w3-modal">
+    <div class="modal-dialog w3-animate-zoom">
+      <div class="modal-content">
+        <div class="modal-header">
+            <span style="font-weight: bold">Ticket Booking</span>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="closePopup()">X</button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div>
+                    <div class="text-center">
+                        <span style="font-weight: bold">{{bookdata.startPoint__c}}</span> 
+                        to 
+                        <span style="font-weight: bold">{{bookdata.endPoint__c}}</span>
+                    </div>
+                    <div>
+                        {{bookdata.vehicleNumber__c}} 
+                    </div>
+              
+                    <div>
+                        <span [ngStyle]="{float:'left',marginLeft:'80px'}">{{bookdata.time__c}}</span>
+                        <span [ngStyle]="{float:'right',marginRight:'50px'}">{{date | date : 'dd-mm-yyyy'}}</span>
+                     </div>
+                    <br>
+                    <button class="btn btn-primary btn-lg" (click)="bookTicket()">Book</button>
+                    <div>
+                        <h1>Contact</h1>
+                        <div>
+                            <h3 [ngStyle]="{float:'left'}">Name:{{bookdata.Name}}</h3><br>
+                            <h3 [ngStyle]="{float:'left'}">Contact:+91 {{bookdata.mobile__c}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- <small *ngIf="message!=''">{{message}}</small> -->
+            </div>
+        </div>
+        <div class="modal-footer" *ngIf="message!=''">
+            <small>
+                <!-- {{message}} -->
+                <span *ngIf="message == 'Ticket Booked Successfully'" style="color: green;">{{message}}</span>
+                <span *ngIf="message != 'Ticket Booked Successfully'" style="color: red;">{{message}}</span>
+            </small>
+        </div>
+      </div>
+    </div>
+  </div>
+ 

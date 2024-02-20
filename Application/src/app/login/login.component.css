@@ -1,0 +1,23 @@
+.forms-group
+{
+    margin: auto;
+    padding:80px;
+   
+    text-align: center;
+    width: 50%;
+    margin-top: 20px;
+    margin-left:10px
+}
+.flex-container {
+    display: flex;
+    align-items: center;
+    height: 85vh;
+    width:100vw;
+    background-color: #f1f1f1;
+
+  }
+  
+  .flex-container > div {
+    
+    font-size: 30px;
+  }

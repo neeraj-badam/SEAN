@@ -1,0 +1,25 @@
+<nav class="navbar bg-primary">
+  <div id="mobile-menu" [ngStyle]="{float:'right'}">
+    <div id="mySidenav" [ngStyle]="{width:width}" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+      <li><a [routerLink]="['/admin']" href="#" [ngStyle]="{color:'white',marginLeft:'10px'}">Home</a></li>
+      <li><a [routerLink]="['/admin/routes']" [ngStyle]="{color:'white',marginLeft:'10px'}">Route</a></li>
+      <li><a (click)="logout()"  [ngStyle]="{color:'white',marginLeft:'10px'}">Logout</a></li>
+    </div>
+    <span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776;</span>
+  </div>
+  
+    <div class="container-fluid">
+      <div class="navbar-header"> 
+        <a class="navbar-brand"  [routerLink]="['/admin']"  [ngStyle]="{color:'white',marginLeft:'10px'}">Car Pool</a>
+      </div>
+      <div id="largeScreens">
+        <ul class="nav navbar-nav" [ngStyle]="{float:'right'}">
+          <li><a [routerLink]="['/admin']" href="#" [ngStyle]="{color:'white',marginLeft:'10px'}">Home</a></li>
+          <li><a [routerLink]="['/admin/routes']" [ngStyle]="{color:'white',marginLeft:'10px'}">Route</a></li>
+          <li><a (click)="logout()"  [ngStyle]="{color:'white',marginLeft:'10px'}">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+</nav>
+

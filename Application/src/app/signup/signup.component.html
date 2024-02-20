@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<div class="container-fluid">
+    <h2>Sign Up</h2>
+    
+    <form [formGroup]='signupForm' (ngSubmit)="Register()">
+        <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" formControlName="emailId" name="emailId" class="form-control">
+            <div *ngIf="signupForm.get('emailId').errors &&  signupForm.get('emailId').touched">
+                <small *ngIf="signupForm.get('emailId').errors.required" class="text-danger">Email is required</small>
+                <small *ngIf="!signupForm.get('emailId').errors.required &&signupForm.get('emailId').dirty && signupForm.get('emailId').errors.emailFailed" class="text-danger">Invalid Email</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" formControlName="username" class="form-control">
+            <div *ngIf="signupForm.get('username').errors &&  signupForm.get('username').touched">
+                <small *ngIf="signupForm.get('username').errors.required" class="text-danger">Username is required</small>
+                <small *ngIf="signupForm.get('username').errors.minlength" class="text-danger">Username should be minimun of 5 characters</small>
+                <small *ngIf="!signupForm.get('username').errors.required &&signupForm.get('username').dirty && signupForm.get('username').errors.usernameFailed" class="text-danger">Username should not be admin</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="text" formControlName="phoneNo" class="form-control">
+            <div *ngIf="signupForm.get('phoneNo').errors &&  signupForm.get('phoneNo').touched">
+                <small *ngIf="signupForm.get('phoneNo').errors.required" class="text-danger">Mobile is required</small>
+                <small *ngIf="!signupForm.get('phoneNo').errors.required &&signupForm.get('phoneNo').dirty && signupForm.get('phoneNo').errors.mobileFailed" class="text-danger">Invalid Phone Number</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" formControlName="address" class="form-control">
+            <div *ngIf="signupForm.get('address').errors &&  signupForm.get('address').touched">
+                <small *ngIf="signupForm.get('address').errors.required" class="text-danger">Address is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" formControlName="password" class="form-control">
+            <div *ngIf="signupForm.get('password').errors &&  signupForm.get('password').touched">
+                <small *ngIf="signupForm.get('password').errors.required" class="text-danger">Password field is required</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input [class.is-invalid]='signupForm.errors?.misMatch'  type="password"  formControlName="confirmPassword" class="form-control">
+            <div *ngIf="signupForm.errors?.misMatch &&  signupForm.get('confirmPassword').touched">
+                <small *ngIf="signupForm.errors?.misMatch" class="text-danger">Passwords doesn't match</small>
+            </div>
+        
+        </div>
+        <small *ngIf="wrongMessage != ''" class="text-danger">{{wrongMessage}}</small>
+
+        <button [disabled]='!signupForm.valid' type="submit" class="btn btn-block btn-primary">Submit</button>
+    </form>
+    <small>
+        Already have an account?
+        <a [routerLink]="['/login']" href="#">Login</a>
+    </small>
+</div>

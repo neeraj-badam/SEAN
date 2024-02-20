@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<app-admin-nav-bar></app-admin-nav-bar>
+
+<nav style="text-align: center" class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" [ngStyle]="{width:'70vw'}">
+          <input  [ngStyle]="{width:'40vw',float:'left'}" [(ngModel)]=Search class="form-control" type="search" placeholder="Type to search here">
+          <button [ngStyle]="{width:'10vw',float:'right',marginRight:'100px'}"  style="margin-right: 10px" class="btn btn-outline-success" (click)="SearchUsers()">Search</button>
+    </div>
+</nav>
+
+<small *ngIf="this.noUsers != ''">{{this.noUsers}}</small>
+<div *ngIf="this.noUsers == ''" class="container-fluid">
+    <div [ngStyle]="{float:'left'}">
+        <table [ngStyle]="{width:'650px',marginLeft: '10px'}">
+            <thead>
+                <tr>
+                    <td [ngStyle]="{borderRight: '2px solid black',width:'150px'}" align="center">S No</td>
+                    <td [ngStyle]="{borderRight: '2px solid black',width:'150px'}" align="center">Name</td>
+                    <td align="center" [ngStyle]="{width:'200px'}">Options</td>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of data;let i=index">
+                <ng-container>
+                    <tr>
+                        <td align="center" [ngStyle]="{width:'150px'}">{{i+1}}</td>
+                        <td align="center" [ngStyle]="{width:'150px'}">{{user.Name}}</td>
+                        <td align="center" [ngStyle]="{width:'200px'}">
+                            <button class="btn" (click)="edit(user)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn" (click)="deleteDriver(user)" [ngStyle]="{marginLeft:'20px'}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>            
+        </table>
+        <hr>
+    </div>
+    <div [ngStyle]="{float:'right'}">
+        <div class="chocolateCream">
+            <br>
+            <h2 align="center">Edit/add</h2>
+            <form [formGroup]='editForm' [ngStyle]="{padding:'20px'}" (ngSubmit)="editUser()">
+            <div class="form-group">
+                <input type="text" formControlName="username" name="username" class="form-control" placeholder="Enter name">
+                <div *ngIf="editForm.get('username').errors &&  editForm.get('username').touched">
+                    <small *ngIf="editForm.get('username').errors.required" class="text-danger">Username is required</small>
+                    <small *ngIf="editForm.get('username').errors.minlength" class="text-danger">Username should be minimun of 5 characters</small>
+                    <small *ngIf="!editForm.get('username').errors.required &&editForm.get('username').dirty && editForm.get('username').errors.usernameFailed" class="text-danger">Username should not be admin</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="phoneNo" name="phoneNo" class="form-control" placeholder="Enter phoneNo">
+                <div *ngIf="editForm.get('phoneNo').errors &&  editForm.get('phoneNo').touched">
+                    <small *ngIf="editForm.get('phoneNo').errors.required" class="text-danger">phoneNo is required</small>
+                    <small *ngIf="!editForm.get('phoneNo').errors.required &&editForm.get('phoneNo').dirty && editForm.get('phoneNo').errors.phoneNoFailed" class="text-danger">Invalid Phone Number</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="emailId" name="emailId" class="form-control" placeholder="Enter email">
+                <div *ngIf="editForm.get('emailId').errors &&  editForm.get('emailId').touched">
+                    <small *ngIf="editForm.get('emailId').errors.required" class="text-danger">Email is required</small>
+                    <small *ngIf="!editForm.get('emailId').errors.required &&editForm.get('emailId').dirty && editForm.get('emailId').errors.emailFailed" class="text-danger">Invalid Email</small>
+                </div>
+            </div>
+            <small *ngIf="wrongMessage != ''" [class]="color">{{wrongMessage}}</small>
+            <button [disabled]='!editForm.valid' type="submit" class="btn btn-block btn-primary">Add/Edit</button>
+            </form>
+        </div>
+    </div>
+</div>

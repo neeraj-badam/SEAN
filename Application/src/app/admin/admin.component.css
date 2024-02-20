@@ -1,0 +1,23 @@
+
+table {
+    border-collapse: separate;
+    border-spacing:0 20px;
+}
+td{
+    line-height: 2em;
+    font-size: x-large;
+}
+tbody > tr{
+    border-radius: 1em;
+    border-collapse: separate;
+    background-color: #87CEFA;
+}
+
+.chocolateCream
+{
+    width: 30vw;
+    margin-top: 30px;
+    margin-right: 100px;
+    border-radius: 2em;
+    background-color:  #fefdd1 ;
+}
